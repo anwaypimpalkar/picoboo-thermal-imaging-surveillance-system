@@ -1,0 +1,38 @@
+<annotation>
+	<folder>humans</folder>
+	<filename>FLIR0155.jpg</filename>
+	<path>C:\Users\siran\OneDrive\Desktop\Me\Picoboo\FLIR T420br Data - Training Data\humans\FLIR0155.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>320</width>
+		<height>240</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>human</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>48</ymin>
+			<xmax>161</xmax>
+			<ymax>213</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>human</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>169</xmin>
+			<ymin>42</ymin>
+			<xmax>295</xmax>
+			<ymax>215</ymax>
+		</bndbox>
+	</object>
+</annotation>

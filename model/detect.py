@@ -1,16 +1,3 @@
-# Copyright 2021 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 """Main script to run the object detection routine."""
 import argparse
 import sys
@@ -41,14 +28,14 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
   # Start capturing video input from the camera
   # cap = cv2.VideoCapture(camera_id)
-  cap = cv2.VideoCapture(r"/home/anway/Downloads/FLIR0220.mp4")
+  cap = cv2.VideoCapture("FLIR0215.mp4")
   cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
   cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
   # Visualization parameters
   row_size = 20  # pixels
   left_margin = 24  # pixels
-  text_color = (0, 0, 255)  # red
+  text_color = (0, 0, 0)  # black
   font_size = 1
   font_thickness = 1
   fps_avg_frame_count = 10
@@ -70,7 +57,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
       )
 
     counter += 1
-    image = cv2.flip(image, 1)
+    # image = cv2.flip(image, 1)
 
     # Run object detection estimation using the model.
     detections = detector.detect(image)
