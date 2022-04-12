@@ -28,7 +28,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
   # Start capturing video input from the camera
   # cap = cv2.VideoCapture(camera_id)
-  cap = cv2.VideoCapture("FLIR0215.mp4")
+  cap = cv2.VideoCapture("testvideos/FLIR0215.mp4")
   cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
   cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
@@ -37,7 +37,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
   left_margin = 24  # pixels
   text_color = (0, 0, 0)  # black
   font_size = 1
-  font_thickness = 1
+  font_thickness = 2
   fps_avg_frame_count = 10
 
   # Initialize the object detection model
@@ -61,6 +61,14 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
     # Run object detection estimation using the model.
     detections = detector.detect(image)
+    
+    if len(detections) > 0:
+      #Intruders detected
+      pass
+    
+    if len(detections) == 0:
+      #Intruders not detected
+      pass
 
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detections)
