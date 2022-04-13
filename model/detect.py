@@ -8,6 +8,18 @@ from object_detector import ObjectDetector
 from object_detector import ObjectDetectorOptions
 import utils
 
+# Firebase setup
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+import json
+
+cred_obj = firebase_admin.credentials.Certificate('/home/anway/picoboo/model/firebase/picoboo420-firebase-adminsdk-xfgr0-8b5ae099d0.json')
+default_app = firebase_admin.initialize_app(firebase_admin.credentials.Certificate('/home/anway/picoboo/model/firebase/picoboo420-firebase-adminsdk-xfgr0-8b5ae099d0.json'), {
+	'databaseURL':'https://picoboo420-default-rtdb.asia-southeast1.firebasedatabase.app'
+	})
+ref = db.reference("/")
+
 
 def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
         enable_edgetpu: bool) -> None:
@@ -39,6 +51,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
   font_size = 1
   font_thickness = 2
   fps_avg_frame_count = 10
+  detection_count = 0
 
   # Initialize the object detection model
   options = ObjectDetectorOptions(
@@ -62,13 +75,12 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
     # Run object detection estimation using the model.
     detections = detector.detect(image)
     
-    if len(detections) > 0:
-      #Intruders detected
-      pass
-    
-    if len(detections) == 0:
-      #Intruders not detected
-      pass
+    if len(detections) != detection_count:
+        detection_count = len(detections)
+        detect_json = {
+            'detections': detection_count
+        }
+        ref.set(json.loads(json.dumps(detect_json, indent = 4)))
 
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detections)
