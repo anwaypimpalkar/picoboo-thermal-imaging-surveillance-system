@@ -1,6 +1,6 @@
 # PicoBoo - Security System with Motion Tracking using Thermal Imaging and Deep Learning
 
-January - May 2022 | Mini Project in TY BTech | Read: [Project Report](https://github.com/anwaypimpalkar/picoboo-thermal-imaging-surveillance-system/raw/main/docs/Report%20-%20PicoBoo%20-%20Security%20System%20with%20Motion%20Tracking%20using%20Thermal%20Imaging%20and%20Deep%20Learning.pdf)
+April 2022 | Mini Project in TY BTech | Read: [Project Report](https://github.com/anwaypimpalkar/picoboo-thermal-imaging-surveillance-system/raw/main/docs/Report%20-%20PicoBoo%20-%20Security%20System%20with%20Motion%20Tracking%20using%20Thermal%20Imaging%20and%20Deep%20Learning.pdf)
 
 ## Introduction
 
@@ -21,6 +21,18 @@ A generic block diagram of the entire system is shown below.
 
 The human detection and tracking algorithm can be simplified into three steps:
 
-1. Collecting data using the *FLIR T420 bx Thermal Imaging Camera*.
+1. Collecting data using the FLIR T420bx Thermal Imaging Camera.
 2. Cleaning the data, labeling it, and building a dataset suitable to train a detection model.
 3. Building a machine learning model capable of detecting humans in the frames.
+
+#### Collecting Data and Building a Dataset
+
+The data was collected using the FLIR T420bx Thermal Imaging Camera using two methods, either by taking pictures and videos on the camera itself and extracting it from the SD card, or by connecting the camera to a computer and accessing the stream via the FLIR Thermal Studio. Since the system we developed was for human intruder detection, we took images and videos focusing on two main labels - human subjects and backgrounds. We collected a total of 6,067 images with human subjects and 4,937 instances of backgrounds. Of this, we worked with a small portion of this data to build the model, of 184 instances of humans, and 222 instances of backgrounds.To label this data, we used a free open-source data labeler, [LabelImg](https://github.com/tzutalin/labelImg).
+
+![](https://github.com/anwaypimpalkar/picoboo-thermal-imaging-surveillance-system/raw/main/docs/rawdata.png)
+
+#### Object Detection Model using EfficientNet-Lite
+
+Google released a family of image classification models called EfficientNet, which achieved state-of-the-art accuracy with an order of magnitude of fewer computations and parameters. EfficientNet has a reputation for achieving high accuracy with minimal parameters and FLOPS (Floating Point Operations Per Second). They looked to optimize these models for deployment at the edge, and in 2020 they launched EfficientNet-Lite which runs on TensorFlow Lite and is designed for performance on mobile CPU, GPU, and EdgeTPU. EfficientNet-Lite brings the power of EfficientNet to edge devices and comes in five variants, allowing users to choose from the low latency/model size option (EfficientNet-Lite0) to the high accuracy option (EfficientNet-Lite4).
+
+We trained on the EfficientNet-Lite0 and EfficientNet-Lite2 model. The EfficientNet-Lite0 model gave a mean Average Precision (mAP) of 67.7% on the validation dataset. When the model ran on a given video stream, it ran at approximately 6 FPS. In an attempt to increase the accuracy, we also trained the model using EfficientNet-Lite2 which gave a higher mAP of 75.3%, which reduced to 72.6% post-quantization. Upon running inferences on our video stream, the frame rate dropped to approximately 2 FPS, which was impractical for our application.
