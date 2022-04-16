@@ -1,11 +1,15 @@
-# PicoBoo - - Security System with Motion Tracking using Thermal Imaging and Deep Learning
+# PicoBoo - Security System with Motion Tracking using Thermal Imaging and Deep Learning
 
-January - April 2022 | Mini Project in TY BTech 
+January - May 2022 | Mini Project in TY BTech | Read: [Project Report](https://github.com/anwaypimpalkar/picoboo-thermal-imaging-surveillance-system/raw/main/docs/Report%20-%20PicoBoo%20-%20Security%20System%20with%20Motion%20Tracking%20using%20Thermal%20Imaging%20and%20Deep%20Learning.pdf)
 
-## Aim and Objective
+## Introduction
 
-To deploy a security system at a given area which identifies, tracks and alerts a user of the presence of another human in the area. 
+The *PicoBoo* system we developed is built on the foundations of thermal imaging and deep neural networks. The application is built and then deployed on a Raspberry Pi 4 Model B for testing and prototyping. We first collected data from a high-end thermal imaging camera, cleaned the data and made a usable training dataset of human images from it. To implement a model which enables tracking of humans in a thermal camera video stream, we used a reliable neural network architecture and gained a high accuracy coupled with a low latency on it. These detections were sent to a real-time cloud database, which was accessed through a web-based app showing whether a human was detected in the frame or not. This web application was deployed to a PaaS application, which can be easily accessed over web browser.
 
-- Detecting a human using thermal imaging and machine learning.
-- Tracking the motion of the human and rotating the camera to follow it.
-- Alert the user of the presence of another human – through a central alarm and a mobile app.
+## High Level Overview
+
+The project is a two-part system encompassing the following subsystems:
+
+1. Human detection and tracking using a thermal imaging camera using TensorFlow Lite.
+2. Web interface to show the status of the security system and stream the thermal camera stream to the application/interface.
+
