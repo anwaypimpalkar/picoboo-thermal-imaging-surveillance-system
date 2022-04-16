@@ -1,4 +1,4 @@
-# PicoBoo - Security System with Motion Tracking using Thermal Imaging and Object Detection
+# PicoBoo - - Security System with Motion Tracking using Thermal Imaging and Deep Learning
 
 January - April 2022 | Mini Project in TY BTech 
 
